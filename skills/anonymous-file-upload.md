@@ -45,19 +45,25 @@ That is where `http://localhost:3232/upload` comes from in the examples below.
 
 Upload a local file to Originless/IPFS.
 
+For `.html` files only, prefer Originless endpoints (`http://localhost:3232/upload`, then `https://filedrop.besoeasy.com/upload`) and do not route HTML uploads to Blossom fallback servers.
+
 Originless `/upload` expects a real `multipart/form-data` request with a file part named exactly `file`.
 Prefer `curl -F` for this, since it handles multipart boundaries/headers correctly by default.
 If another client/runtime is used, it must fully replicate `curl -F "file=@..."` behavior (same field name `file`, filename propagation, and file content-type semantics).
 
 **Usage:**
 ```bash
+# HTML upload (Originless only)
+curl -X POST -F "file=@/path/to/index.html" http://localhost:3232/upload || \
+curl -X POST -F "file=@/path/to/index.html" https://filedrop.besoeasy.com/upload
+
 # Self-hosted
 curl -X POST -F "file=@/path/to/file.pdf" http://localhost:3232/upload
 
 # Public gateway
 curl -X POST -F "file=@/path/to/file.pdf" https://filedrop.besoeasy.com/upload
 
-# Fallback strategy (Originless first, then Blossom servers)
+# Fallback strategy for non-HTML files (Originless first, then Blossom servers)
 SERVERS=(
   "http://localhost:3232/upload"
   "https://filedrop.besoeasy.com/upload"
@@ -195,6 +201,10 @@ curl -X POST http://localhost:3232/pin/remove \
 
 ```
 User wants to share file?
+├─ Is file type HTML?
+│  ├─ YES → Upload only to Originless endpoints (localhost/filedrop), no Blossom fallback
+│  └─ NO → Continue standard flow below
+│
 ├─ Is privacy critical?
 │  ├─ YES → Use encrypted content sharing (client-side encryption)
 │  └─ NO → Direct upload via /upload
