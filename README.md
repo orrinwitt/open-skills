@@ -160,6 +160,7 @@ AI agents are incredibly powerful, but they waste enormous amounts of compute re
 - [Anonymous File Upload](./skills/anonymous-file-upload.md) — Privacy-first anonymous uploads to IPFS, with optional client-side encryption for private sharing.
 - [Check Crypto Address Balance](./skills/check-crypto-address-balance.md) — Query address balances for BTC, ETH, BSC, Solana, LTC, and more using free public APIs (Blockchain.info, Etherscan, BscScan, Solana RPC, Chain.so).
 - [Get Crypto Price](./skills/get-crypto-price.md) — Fetch current and historical crypto prices (CoinGecko, Binance, Coinbase) and compute ATH/ATL for common time windows.
+- [News Aggregation](./skills/news-aggregation.md) — Collect latest news from major sites and aggregators, merge similar stories into one short topic, and list all source links (default: last 3 days).
 - [Nostr Logging System](./skills/nostr-logging-system.md) — Route non-sensitive logs to public Nostr notes and send sensitive logs privately to an admin `npub`.
 - [PDF Manipulation](./skills/pdf-manipulation.md) — Merge, split, extract text/images, redact, compress, encrypt, and watermark PDFs using pdftk, qpdf, poppler-utils, and ghostscript.
 - [Telegram (Telegraf)](./skills/using-telegram-bot.md) — Node.js examples for building Telegram bots with `telegraf` (polling, webhooks, media, inline buttons).
