@@ -425,5 +425,5 @@ done
 - **Missing fonts**: Install `fonts-liberation` or `msttcorefonts` packages.
 
 ## See also
-- `anonymous-file-upload.md` — Upload processed PDFs anonymously.
-- `using-web-scraping.md` — Scrape web pages and convert to PDF.
+- [anonymous-file-upload.md](anonymous-file-upload.md) — Upload processed PDFs anonymously.
+- [using-web-scraping.md](using-web-scraping.md) — Scrape web pages and convert to PDF.

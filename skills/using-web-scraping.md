@@ -94,4 +94,4 @@ Return results as JSON: [{url,title,description,text}] or `login_required` if a 
 - Respect site terms and introduce exponential backoff for retries.
 
 ## See also
-- `using-youtube-download.md` — media-specific scraping and download examples.
+- [using-youtube-download.md](using-youtube-download.md) — media-specific scraping and download examples.

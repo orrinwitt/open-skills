@@ -224,4 +224,4 @@ Use the appropriate free public API from the table above, respecting rate limits
 Blockchair supports: BTC, ETH, LTC, DOGE, BCH, Dash, Ripple, Groestlcoin, Stellar, Monero (view-key required), Cardano, and Zcash (t-addresses).
 
 ## See also
-- `get-crypto-price.md` — Fetching current and historical crypto prices.
+- [get-crypto-price.md](get-crypto-price.md) — Fetching current and historical crypto prices.
