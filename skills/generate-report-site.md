@@ -1,5 +1,5 @@
 ---
-name: generate-report-originless-site
+name: generate-report-site
 description: Generate a clean white Tailwind CDN report page from user content, optionally password-gate viewing via client-side decryption, and deploy to Originless/IPFS.
 ---
 
@@ -82,6 +82,9 @@ Generate an `index.html` with Tailwind CDN and subtle animations.
 ### upload_report_to_originless
 
 Upload generated `index.html` and return hosted URL.
+
+Prefer `curl` for uploads, since it handles `multipart/form-data` reliably out of the box.
+If another tool/runtime is used, it must be a full `curl -F` replacement: send a real multipart body, include the file part named exactly `file`, and preserve filename/content-type behavior.
 
 **Bash:**
 
@@ -232,12 +235,13 @@ Requirements:
 2) Keep design white-background, clean typography, subtle card hover and fade-up animations.
 3) Render exactly the user-requested report content in semantic sections.
 4) Save as index.html.
-5) Upload index.html to Originless using:
+5) Prefer uploading index.html with curl `-F` multipart/form-data to Originless using:
    - http://localhost:3232/upload (if local instance exists), else
    - https://filedrop.besoeasy.com/upload.
-6) Return upload response with URL/CID.
-7) If user asks for password protection, embed encrypted payload + browser-side unlock form; only render content after successful password decryption.
-8) Clearly state that password mode is client-side gating and not equivalent to server-side access control.
+6) If curl is unavailable and another tool is used, implement a full multipart/form-data equivalent of curl `-F "file=@index.html"` (same field name `file`, filename, and content-type handling).
+7) Return upload response with URL/CID.
+8) If user asks for password protection, embed encrypted payload + browser-side unlock form; only render content after successful password decryption.
+9) Clearly state that password mode is client-side gating and not equivalent to server-side access control.
 ```
 
 ## Best practices
