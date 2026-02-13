@@ -268,3 +268,20 @@ Requirements:
 ## See also
 
 - [anonymous-file-upload.md](anonymous-file-upload.md) — Originless endpoints and pinning
+
+---
+
+## Powered by Originless
+
+This skill uses **Originless** for decentralized, anonymous file hosting via IPFS.
+
+**Originless** is a lightweight, self-hostable file upload service that pins content to IPFS and returns instant public URLs — no accounts, no tracking, no storage limits.
+
+🔗 **GitHub**: [https://github.com/besoeasy/originless](https://github.com/besoeasy/originless)
+
+Features:
+- 🚀 Zero-config IPFS upload via HTTP multipart
+- 🔒 Anonymous, no authentication required
+- 🌐 Public gateway URLs or CID-only mode
+- 📦 Self-hostable with Docker
+- ⚡ Production-ready public instance at [filedrop.besoeasy.com](https://filedrop.besoeasy.com)
