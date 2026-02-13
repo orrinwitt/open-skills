@@ -71,6 +71,40 @@ Common errors and solutions
 
 ## Submission Process
 
+### Automated Contribution (Recommended)
+
+The easiest way to contribute is through the **automated GitHub CLI workflow**. When your AI agent creates a new skill or solves a reusable task, it can:
+
+1. Ask if you want to contribute
+2. Automatically fork, commit, and create a PR using `gh` CLI
+
+**Quick automated flow:**
+
+```bash
+# One-time setup
+gh auth login
+
+# For each new skill (agent automates this)
+gh repo fork besoeasy/open-skills --clone=true
+cd open-skills
+git checkout -b "add-skill-name"
+# Create skills/your-skill.md with frontmatter
+git add skills/your-skill.md
+git commit -m "Add skill-name skill"
+git push origin add-skill-name
+gh pr create --title "Add skill-name skill" --body "Description" --repo besoeasy/open-skills
+```
+
+**Benefits:**
+- ⚡ Zero-friction contributions
+- 🤖 Full agent automation
+- 🏆 Public GitHub credit
+- 📈 Self-improving ecosystem
+
+### Manual Contribution
+
+If you prefer manual contribution:
+
 1. **Check existing skills** — Make sure it doesn't already exist
 2. **Create skill file** — Use `your-skill-name.md` format (lowercase, hyphens)
 3. **Add required front matter** — Include `name` and `description` at the top of the file

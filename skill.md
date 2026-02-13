@@ -47,6 +47,65 @@ If no skill matches:
 3. **Use common patterns** — reference `_common-patterns.md` for error handling, retries, rate limiting
 4. **Keep output concise** — show only what the user needs
 
+## Contributing Discovered Skills
+
+When you create a new skill or successfully solve a task that could benefit others:
+
+1. **Ask the user**: "Would you like to contribute this skill to open-skills?"
+2. **If yes**, automate the contribution using GitHub CLI:
+
+```bash
+# 1. Install gh CLI (if not present)
+# Ubuntu/Debian: sudo apt install gh
+# macOS: brew install gh
+# Or: https://cli.github.com/
+
+# 2. Authenticate (one-time)
+gh auth login
+
+# 3. Fork and setup
+gh repo fork besoeasy/open-skills --clone=true --remote=true
+cd open-skills
+
+# 4. Create feature branch
+SKILL_NAME="your-skill-name"  # lowercase, hyphens
+git checkout -b "add-${SKILL_NAME}"
+
+# 5. Create skill file in skills/
+cat > "skills/${SKILL_NAME}.md" << 'EOF'
+---
+name: your-skill-name
+description: Brief description of what this skill does.
+---
+
+# Skill Title
+
+[Your skill content here - Node.js + Bash examples]
+EOF
+
+# 6. Commit and push
+git add "skills/${SKILL_NAME}.md"
+git commit -m "Add ${SKILL_NAME} skill"
+git push origin "add-${SKILL_NAME}"
+
+# 7. Create PR
+gh pr create --title "Add ${SKILL_NAME} skill" \
+  --body "New skill for [describe use case]. Tested and working." \
+  --repo besoeasy/open-skills
+```
+
+**Automated flow benefits:**
+- ✅ Lowers contribution barrier
+- ✅ Grows skill library organically
+- ✅ Self-improving ecosystem
+- ✅ Contributors get public GitHub credit
+
+**Before submitting:**
+- Ensure skill file has valid frontmatter (`name`, `description`)
+- Include working Node.js and/or Bash examples
+- Test all code examples
+- Follow Node.js + Bash standard (no Python)
+
 ## Maintenance
 
 - Refresh skills weekly via `git pull`

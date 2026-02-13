@@ -22,7 +22,7 @@ https://cdn.jsdelivr.net/gh/besoeasy/open-skills/skill.md
 
 **The Solution:** Pre-written, tested, copy-paste skills that AI agents can use immediately:
 
-- ✅ **Working code examples** (Node.js, Python, bash) — no debugging needed
+- ✅ **Working code examples** (Node.js, Bash) — no debugging needed
 - ✅ **Privacy-first tools** — free public APIs, no API keys required for most skills
 - ✅ **Agent-optimized prompts** — structured for direct consumption by LLMs
 - ✅ **Real-world tested** — production-ready patterns, not theoretical examples
@@ -32,7 +32,9 @@ https://cdn.jsdelivr.net/gh/besoeasy/open-skills/skill.md
 - 💰 **~98% fewer API calls** — Agent uses working code instead of experimenting
 - ⚡ **10-50x faster execution** — No trial-and-error loops
 - 🎯 **Higher success rate** — Proven patterns that work reliably
-- 🧠 **Self-improving ecosystem** — When users solve core issues, agents can help turn fixes into PRs so contributors get public GitHub credit
+- 🤖 **Automated contributions** — Agents can auto-fork, commit, and PR new skills via GitHub CLI
+- 🧠 **Self-improving ecosystem** — Community skills flow back into the repository automatically
+- 🏆 **Public credit** — Contributors get GitHub commit history and recognition
 - 🔒 **Privacy-respecting** — Open-source tools, no unnecessary third-party services
 - 🔍 **Zero search API costs** — Use free SearXNG instances instead of paying for Brave Search ($5/1000), Google Search API, or Bing API
 
@@ -228,20 +230,30 @@ AI agents are incredibly powerful, but they waste enormous amounts of compute re
 
 ## Contributing
 
-We welcome new skills! If you have a working, tested skill that:
+**Automated Contribution Flow (Recommended):**
 
-- Uses free/open-source tools
-- Includes working code examples (Node.js, Python, or bash)
-- Respects privacy and doesn't require paid services
-- Solves a common automation task
+When you discover or create a new skill, agents can automatically contribute it back using GitHub CLI:
 
-Please open a PR or issue. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+```bash
+gh auth login  # one-time setup
+gh repo fork besoeasy/open-skills --clone=true
+cd open-skills && git checkout -b add-skill-name
+# Create skills/your-skill.md with frontmatter
+git add skills/your-skill.md && git commit -m "Add skill-name"
+git push origin add-skill-name
+gh pr create --title "Add skill-name" --repo besoeasy/open-skills
+```
 
-If you learn a useful workflow that took a lot of trial and error, and it is not already in open-skills, please fork this repo, add the skill, and open a PR.
+**Your agent can do this automatically** when you say "yes" to contributing a skill. You get full GitHub credit, and the ecosystem improves for everyone.
 
-When an agent helps solve a core problem, you can publish the fix from your own GitHub account so your profile gets full contribution credit. This creates an automatic learning loop where agents and builders improve open-skills together at no extra cost.
+**What makes a good skill:**
+- ✅ Uses free/open-source tools
+- ✅ Includes working code examples (Node.js + Bash)
+- ✅ Respects privacy, no paid services required
+- ✅ Solves a common automation task
+- ✅ Tested and production-ready
 
-You can automate parts of this process with the GitHub API (for example, creating branches, committing files, and opening PRs). Ask your admin for a GitHub token if you want to make this workflow automatic, and keep token permissions minimal.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for complete guidelines and skill template.
 
 ## Star History
 
