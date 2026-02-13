@@ -32,37 +32,36 @@ curl "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=us
 
 Response contains `prices` array: [[timestamp_ms, price], ...].
 
-Python example: fetch 90 days and compute ATH/ATL for 1d/7d/30d windows.
+**Node.js:** Fetch 90 days and compute ATH/ATL for 1d/7d/30d windows.
 
-```python
-import requests
-import time
-from datetime import datetime, timedelta
-
-def fetch_coingecko_prices(coin_id='bitcoin', vs='usd', days=90):
-    url = f'https://api.coingecko.com/api/v3/coins/{coin_id}/market_chart'
-    r = requests.get(url, params={'vs_currency': vs, 'days': days}, timeout=15)
-    r.raise_for_status()
-    return r.json()['prices']  # list of [ts_ms, price]
-
-def max_min_in_window(prices, since_ms):
-    window = [p for (ts, p) in prices if ts >= since_ms]
-    if not window:
-        return None, None
-    return max(window), min(window)
-
-prices = fetch_coingecko_prices('bitcoin', 'usd', 90)
-now_ms = int(time.time() * 1000)
-
-windows = {
-    '1d': now_ms - 24*3600*1000,
-    '1w': now_ms - 7*24*3600*1000,
-    '1m': now_ms - 30*24*3600*1000,
+```javascript
+async function fetchCoinGeckoPrices(coinId = 'bitcoin', vs = 'usd', days = 90) {
+  const url = `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart`;
+  const res = await fetch(`${url}?vs_currency=${vs}&days=${days}`);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const data = await res.json();
+  return data.prices; // array of [ts_ms, price]
 }
 
-for name, since in windows.items():
-    ath, atl = max_min_in_window(prices, since)
-    print(name, 'ATH:', ath, 'ATL:', atl)
+function maxMinInWindow(prices, sinceMs) {
+  const window = prices.filter(([ts]) => ts >= sinceMs).map(([, p]) => p);
+  if (window.length === 0) return [null, null];
+  return [Math.max(...window), Math.min(...window)];
+}
+
+const prices = await fetchCoinGeckoPrices('bitcoin', 'usd', 90);
+const nowMs = Date.now();
+
+const windows = {
+  '1d': nowMs - 24 * 3600 * 1000,
+  '1w': nowMs - 7 * 24 * 3600 * 1000,
+  '1m': nowMs - 30 * 24 * 3600 * 1000,
+};
+
+for (const [name, since] of Object.entries(windows)) {
+  const [ath, atl] = maxMinInWindow(prices, since);
+  console.log(name, 'ATH:', ath, 'ATL:', atl);
+}
 ```
 
 Notes: CoinGecko returns sampled points (usually hourly) — good for these windows.
@@ -86,43 +85,43 @@ curl "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=100
 
 Each kline row: [openTime, open, high, low, close, ...] where openTime is ms.
 
-Python example: fetch hourly klines for last 90 days and compute ATH/ATL windows.
+**Node.js:** Fetch hourly klines for last 90 days and compute ATH/ATL windows.
 
-```python
-import requests
-import time
-from datetime import datetime, timedelta
-
-def fetch_binance_klines(symbol='BTCUSDT', interval='1h', limit=1000):
-    url = 'https://api.binance.com/api/v3/klines'
-    r = requests.get(url, params={'symbol': symbol, 'interval': interval, 'limit': limit}, timeout=15)
-    r.raise_for_status()
-    return r.json()  # list of lists
-
-# To cover ~90 days hourly: 24*90 = 2160 rows -> call twice with different startTimes or use 4h interval
-klines = fetch_binance_klines('BTCUSDT', '1h', 1000)
-# For more than 1000 rows you'd loop with startTime using ms timestamps.
-
-# Convert to list of (ts_ms, high, low)
-data = [(row[0], float(row[2]), float(row[3])) for row in klines]
-now_ms = int(time.time() * 1000)
-
-def ath_atl_from_klines(data, since_ms):
-    highs = [h for (ts,h,l) in data if ts >= since_ms]
-    lows = [l for (ts,h,l) in data if ts >= since_ms]
-    if not highs:
-        return None, None
-    return max(highs), min(lows)
-
-windows = {
-    '1d': now_ms - 24*3600*1000,
-    '1w': now_ms - 7*24*3600*1000,
-    '1m': now_ms - 30*24*3600*1000,
+```javascript
+async function fetchBinanceKlines(symbol = 'BTCUSDT', interval = '1h', limit = 1000) {
+  const url = 'https://api.binance.com/api/v3/klines';
+  const params = new URLSearchParams({ symbol, interval, limit: String(limit) });
+  const res = await fetch(`${url}?${params}`);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return await res.json(); // array of arrays
 }
 
-for name, since in windows.items():
-    ath, atl = ath_atl_from_klines(data, since)
-    print(name, 'ATH:', ath, 'ATL:', atl)
+// To cover ~90 days hourly: 24*90 = 2160 rows -> call twice with different startTimes or use 4h interval
+const klines = await fetchBinanceKlines('BTCUSDT', '1h', 1000);
+// For more than 1000 rows you'd loop with startTime using ms timestamps.
+
+// Convert to list of [ts_ms, high, low]
+const data = klines.map(row => [row[0], parseFloat(row[2]), parseFloat(row[3])]);
+const nowMs = Date.now();
+
+function athAtlFromKlines(data, sinceMs) {
+  const filtered = data.filter(([ts]) => ts >= sinceMs);
+  if (filtered.length === 0) return [null, null];
+  const highs = filtered.map(([, h]) => h);
+  const lows = filtered.map(([, , l]) => l);
+  return [Math.max(...highs), Math.min(...lows)];
+}
+
+const windows = {
+  '1d': nowMs - 24 * 3600 * 1000,
+  '1w': nowMs - 7 * 24 * 3600 * 1000,
+  '1m': nowMs - 30 * 24 * 3600 * 1000,
+};
+
+for (const [name, since] of Object.entries(windows)) {
+  const [ath, atl] = athAtlFromKlines(data, since);
+  console.log(name, 'ATH:', ath, 'ATL:', atl);
+}
 ```
 
 Notes: Binance `limit` is 1000 max per request; for full 90 days hourly, page by startTime.
@@ -156,26 +155,28 @@ General steps (applies to any data source that gives timestamped prices or OHLC 
 3. Filter the points where timestamp >= window_start.
 4. If you have OHLC candles, use `high` as candidate for ATH and `low` as candidate for ATL. If you only have sampled prices, use max/min of sampled values.
 
-Example in plain Python (assuming `points` is list of (ts_ms, price) or candles):
+**Example with simple price points (Node.js):**
 
-```python
-# points = [(ts_ms, price), ...]
-since_ms = int(time.time() * 1000) - 24*3600*1000  # 1 day
-window_prices = [p for (ts, p) in points if ts >= since_ms]
-if window_prices:
-    ath = max(window_prices)
-    atl = min(window_prices)
-else:
-    ath = atl = None
+```javascript
+// points = [[ts_ms, price], ...]
+const sinceMs = Date.now() - 24 * 3600 * 1000; // 1 day
+const windowPrices = points.filter(([ts]) => ts >= sinceMs).map(([, p]) => p);
+if (windowPrices.length > 0) {
+  const ath = Math.max(...windowPrices);
+  const atl = Math.min(...windowPrices);
+} else {
+  const ath = null;
+  const atl = null;
+}
 ```
 
-If using OHLC candles:
+**If using OHLC candles:**
 
-```python
-# candles = [(ts_ms, open, high, low, close), ...]
-window = [c for c in candles if c[0] >= since_ms]
-ath = max(c[2] for c in window)
-atl = min(c[3] for c in window)
+```javascript
+// candles = [[ts_ms, open, high, low, close], ...]
+const window = candles.filter(c => c[0] >= sinceMs);
+const ath = Math.max(...window.map(c => c[2]));
+const atl = Math.min(...window.map(c => c[3]));
 ```
 
 ---

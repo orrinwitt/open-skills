@@ -118,19 +118,6 @@ const out = await res.json();
 console.log(out.url || out.cid || out);
 ```
 
-**Python:**
-
-```python
-import requests
-
-endpoint = "https://filedrop.besoeasy.com/upload"
-with open("index.html", "rb") as f:
-    files = {"file": ("index.html", f, "text/html")}
-    r = requests.post(endpoint, files=files, timeout=60)
-    r.raise_for_status()
-    print(r.json())
-```
-
 ### password_gate_report_optional
 
 If user requests a password, keep content encrypted in the HTML and only render when the correct password is entered.

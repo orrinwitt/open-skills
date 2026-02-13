@@ -69,20 +69,6 @@ async function mergePDFs(files, output) {
 // mergePDFs(['file1.pdf', 'file2.pdf'], 'merged.pdf');
 ```
 
-**Python (PyPDF2):**
-```python
-from PyPDF2 import PdfMerger
-
-def merge_pdfs(files, output):
-    merger = PdfMerger()
-    for pdf in files:
-        merger.append(pdf)
-    merger.write(output)
-    merger.close()
-
-# merge_pdfs(['file1.pdf', 'file2.pdf'], 'merged.pdf')
-```
-
 ### Split PDF (by page or range)
 ```bash
 # Split every page into separate files
@@ -121,23 +107,6 @@ async function extractPages(inputPath, pages, outputPath) {
 // extractPages('input.pdf', [1, 3, 5], 'output.pdf');
 ```
 
-**Python (PyPDF2):**
-```python
-from PyPDF2 import PdfReader, PdfWriter
-
-def extract_pages(input_path, pages, output_path):
-    reader = PdfReader(input_path)
-    writer = PdfWriter()
-    
-    for page_num in pages:
-        writer.add_page(reader.pages[page_num - 1])
-    
-    with open(output_path, 'wb') as out:
-        writer.write(out)
-
-# extract_pages('input.pdf', [1, 3, 5], 'output.pdf')
-```
-
 ### Extract text
 ```bash
 # Extract all text (preserves layout)
@@ -167,20 +136,6 @@ async function extractText(filePath) {
 // extractText('input.pdf').then(console.log);
 ```
 
-**Python (PyPDF2):**
-```python
-from PyPDF2 import PdfReader
-
-def extract_text(input_path):
-    reader = PdfReader(input_path)
-    text = ''
-    for page in reader.pages:
-        text += page.extract_text() + '\n'
-    return text
-
-# print(extract_text('input.pdf'))
-```
-
 ### Extract images
 ```bash
 # Extract all images from PDF
@@ -199,24 +154,6 @@ pdftk input.pdf cat 1 5-end output redacted.pdf
 
 # Keep only specific pages
 pdftk input.pdf cat 1-10 20-30 output selected.pdf
-```
-
-**Python (PyPDF2 - redact text):**
-```python
-from PyPDF2 import PdfReader, PdfWriter
-
-def remove_pages(input_path, pages_to_remove, output_path):
-    reader = PdfReader(input_path)
-    writer = PdfWriter()
-    
-    for i, page in enumerate(reader.pages):
-        if (i + 1) not in pages_to_remove:
-            writer.add_page(page)
-    
-    with open(output_path, 'wb') as out:
-        writer.write(out)
-
-# remove_pages('input.pdf', [2, 3, 4], 'redacted.pdf')
 ```
 
 ### Add password protection
@@ -312,24 +249,6 @@ qpdf --show-object=1 input.pdf
 
 # Using pdfinfo (poppler-utils)
 pdfinfo input.pdf
-```
-
-**Python (PyPDF2):**
-```python
-from PyPDF2 import PdfReader
-
-def get_metadata(input_path):
-    reader = PdfReader(input_path)
-    meta = reader.metadata
-    return {
-        'title': meta.title,
-        'author': meta.author,
-        'pages': len(reader.pages),
-        'creator': meta.creator,
-        'producer': meta.producer
-    }
-
-# print(get_metadata('input.pdf'))
 ```
 
 ### Multi-operation script (Node.js)

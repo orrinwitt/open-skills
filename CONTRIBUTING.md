@@ -38,18 +38,15 @@ Brief description (1-2 sentences) of what the skill does.
 ## Skills
 
 ### [Operation 1]
-```bash
-# Bash/curl example
-```
 
-**Node.js example:**
+**Node.js:**
 ```javascript
-// Working Node.js code
+// Working Node.js code with error handling
 ```
 
-**Python example:**
-```python
-# Working Python code
+**Bash (if applicable):**
+```bash
+# Simple curl/shell one-liner
 ```
 
 ### [Operation 2]
@@ -84,12 +81,20 @@ The repository uses skill file front matter for indexing, so no README skill lis
 
 ## Code Examples Requirements
 
-- ✅ Include at least 2 languages (prefer Node.js + Python)
+- ✅ **Node.js first** — Primary language for all skills (npm has excellent module coverage)
+- ✅ **Bash for simple cases** — Include curl/shell examples when it's a simple one-liner or system command
 - ✅ Show full working code (not snippets that won't run)
 - ✅ Handle errors gracefully
 - ✅ Include comments for complex logic
 - ✅ Use modern syntax (async/await, not callbacks)
 - ✅ Pin versions when relevant
+
+**Why Node.js + Bash only?**
+- Reduces file size by 50-60%
+- npm ecosystem is comprehensive and well-maintained
+- Agents can translate to Python/other languages on demand
+- Easier to maintain and contribute
+- Bash covers universal CLI/curl operations
 
 ## Testing Checklist
 

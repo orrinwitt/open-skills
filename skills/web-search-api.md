@@ -39,7 +39,7 @@ Free, unlimited web search API for AI agents — no costs, no rate limits, no tr
 curl -s "https://searx.space/data/instances.json" | jq -r '.instances | to_entries[] | select(.value.http.grade == "A" or .value.http.grade == "A+") | select(.value.network.asn_privacy == 1) | .key' | head -10
 ```
 
-**Node.js — Get all instances:**
+**Node.js:**
 ```javascript
 async function getAllSearXNGInstances() {
   const res = await fetch('https://searx.space/data/instances.json');
@@ -54,24 +54,6 @@ async function getAllSearXNGInstances() {
 // getAllSearXNGInstances().then(console.log);
 ```
 
-**Python — Get all instances:**
-```python
-import requests
-
-def get_all_searxng_instances():
-    res = requests.get('https://searx.space/data/instances.json')
-    data = res.json()
-
-    instances = []
-    for url, info in data['instances'].items():
-    if url.startswith('https://'):
-            instances.append(url)
-
-    return instances
-
-# print(get_all_searxng_instances())
-```
-
 ### 2. Search with SearXNG API
 
 **Basic search query:**
@@ -83,7 +65,7 @@ QUERY="open source AI agents"
 curl -s "${INSTANCE}/search?q=${QUERY}&format=json" | jq '.results[] | {title, url, content}'
 ```
 
-**Node.js — Search function:**
+**Node.js:**
 ```javascript
 async function searxSearch(query, instance = 'https://searx.party') {
   const params = new URLSearchParams({
@@ -108,37 +90,9 @@ async function searxSearch(query, instance = 'https://searx.party') {
 // searxSearch('cryptocurrency prices').then(results => console.log(results.slice(0, 5)));
 ```
 
-**Python — Search function:**
-```python
-import requests
-from urllib.parse import urlencode
-
-def searx_search(query, instance='https://searx.party', limit=10):
-    params = {
-        'q': query,
-        'format': 'json',
-        'language': 'en',
-        'safesearch': 0
-    }
-    
-    res = requests.get(f'{instance}/search', params=params)
-    data = res.json()
-    
-    results = [{
-        'title': r['title'],
-        'url': r['url'],
-        'content': r.get('content', ''),
-        'engine': r.get('engine', '')
-    } for r in data.get('results', [])[:limit]]
-    
-    return results
-
-# print(searx_search('best privacy tools', limit=5))
-```
-
 ### 3. Multi-instance search (auto-discovery + cache)
 
-**Node.js — Probe all instances, cache working ones, refresh on errors:**
+**Node.js:**
 ```javascript
 const PROBE_QUERY = 'besoeasy';
 const MAX_RETRIES = 7;
@@ -229,85 +183,6 @@ async function searxMultiSearch(query) {
 //   console.log(`Used instance: ${data.instance}`);
 //   console.log(data.results.slice(0, 3));
 // });
-```
-
-**Python — Probe all instances, cache working ones, refresh on errors:**
-```python
-import time
-
-PROBE_QUERY = 'besoeasy'
-MAX_RETRIES = 7
-CACHE_TTL_SECONDS = 30 * 60
-
-_working_instances_cache = []
-_cache_updated_at = 0
-
-def probe_instance(instance, timeout=8):
-  try:
-    res = requests.get(
-      f'{instance}/search',
-      params={
-        'q': PROBE_QUERY,
-        'format': 'json',
-        'categories': 'news',
-        'language': 'en'
-      },
-      timeout=timeout
-    )
-
-    if res.status_code != 200:
-      return False
-
-    data = res.json()
-    return isinstance(data.get('results', []), list)
-  except Exception:
-    return False
-
-def refresh_working_instances():
-  global _working_instances_cache, _cache_updated_at
-
-  all_instances = get_all_searxng_instances()
-  working = []
-
-  for instance in all_instances:
-    if probe_instance(instance):
-      working.append(instance)
-
-  _working_instances_cache = working
-  _cache_updated_at = time.time()
-  return _working_instances_cache
-
-def get_working_instances():
-  cache_expired = (time.time() - _cache_updated_at) > CACHE_TTL_SECONDS
-  if not _working_instances_cache or cache_expired:
-    return refresh_working_instances()
-  return _working_instances_cache
-
-def searx_multi_search(query):
-  instances = get_working_instances()
-
-  if not instances:
-    raise Exception('No working SearXNG instances found during probe step')
-
-  for i in range(MAX_RETRIES):
-    instance = instances[i % len(instances)]
-
-        try:
-            results = searx_search(query, instance)
-            if results:
-                return {'instance': instance, 'results': results}
-      raise Exception('Empty results')
-    except Exception:
-      if i == 0 or i == (MAX_RETRIES // 2):
-        instances = refresh_working_instances()
-        if not instances:
-          break
-
-  raise Exception('All cached/rediscovered instances failed after 7 retries')
-
-# data = searx_multi_search('AI search engines')
-# print(f"Used: {data['instance']}")
-# print(data['results'][:3])
 ```
 
 ### 4. Category-specific search

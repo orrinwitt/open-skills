@@ -7,6 +7,8 @@ description: Reusable error handling, retry logic, rate limiting, and timeout pa
 
 Reusable code patterns for error handling, retries, rate limiting, and timeouts. Reference these patterns when building or improving skills to reduce duplication and increase reliability.
 
+All examples use **Node.js** (with Bash where applicable). Agents can translate to other languages on demand.
+
 ## Error Handling Patterns
 
 ### Basic try-catch with fallback
@@ -25,22 +27,6 @@ async function fetchWithFallback(primaryUrl, fallbackUrl) {
     return await res.json();
   }
 }
-```
-
-**Python:**
-```python
-import requests
-
-def fetch_with_fallback(primary_url, fallback_url):
-    try:
-        res = requests.get(primary_url, timeout=10)
-        res.raise_for_status()
-        return res.json()
-    except Exception as e:
-        print(f"Primary failed: {e}, trying fallback...")
-        res = requests.get(fallback_url, timeout=10)
-        res.raise_for_status()
-        return res.json()
 ```
 
 **Bash:**
@@ -85,30 +71,6 @@ async function retryWithBackoff(fn, maxRetries = 3, baseDelay = 1000) {
 
 // Usage:
 // await retryWithBackoff(() => fetch('https://api.example.com/data'));
-```
-
-**Python:**
-```python
-import time
-from typing import Callable, Any
-
-def retry_with_backoff(fn: Callable, max_retries: int = 3, base_delay: float = 1.0) -> Any:
-    last_error = None
-    
-    for i in range(max_retries):
-        try:
-            return fn()
-        except Exception as e:
-            last_error = e
-            if i < max_retries - 1:
-                delay = base_delay * (2 ** i)
-                print(f"Attempt {i + 1} failed: {e}. Retrying in {delay}s...")
-                time.sleep(delay)
-    
-    raise Exception(f"Failed after {max_retries} attempts: {last_error}")
-
-# Usage:
-# retry_with_backoff(lambda: requests.get('https://api.example.com/data'))
 ```
 
 **Bash:**
@@ -173,39 +135,6 @@ class RateLimiter {
 // await fetch('https://api.example.com/data');
 ```
 
-**Python:**
-```python
-import time
-from collections import deque
-
-class RateLimiter:
-    def __init__(self, max_requests: int, window_seconds: float):
-        self.max_requests = max_requests
-        self.window_seconds = window_seconds
-        self.requests = deque()
-    
-    def throttle(self):
-        now = time.time()
-        
-        # Remove requests outside the window
-        while self.requests and now - self.requests[0] >= self.window_seconds:
-            self.requests.popleft()
-        
-        if len(self.requests) >= self.max_requests:
-            oldest_request = self.requests[0]
-            wait_time = self.window_seconds - (now - oldest_request)
-            print(f"Rate limit reached. Waiting {wait_time:.2f}s...")
-            time.sleep(wait_time + 0.1)
-            return self.throttle()
-        
-        self.requests.append(now)
-
-# Usage:
-# limiter = RateLimiter(5, 1.0)  # 5 requests per second
-# limiter.throttle()
-# requests.get('https://api.example.com/data')
-```
-
 ## Timeout Handling
 
 ### Request with timeout and graceful degradation
@@ -231,21 +160,6 @@ async function fetchWithTimeout(url, timeoutMs = 10000) {
     throw err;
   }
 }
-```
-
-**Python:**
-```python
-import requests
-
-def fetch_with_timeout(url: str, timeout_seconds: float = 10.0):
-    try:
-        res = requests.get(url, timeout=timeout_seconds)
-        res.raise_for_status()
-        return res.json()
-    except requests.Timeout:
-        raise Exception(f"Request timeout after {timeout_seconds}s")
-    except requests.RequestException as e:
-        raise Exception(f"Request failed: {e}")
 ```
 
 **Bash:**
@@ -349,29 +263,6 @@ function safeParse(text, requiredFields = []) {
 // const data = safeParse(responseText, ['status', 'result']);
 ```
 
-**Python:**
-```python
-import json
-from typing import List, Any, Dict
-
-def safe_parse(text: str, required_fields: List[str] = None) -> Dict[str, Any]:
-    required_fields = required_fields or []
-    
-    try:
-        data = json.loads(text)
-        
-        for field in required_fields:
-            if field not in data:
-                raise ValueError(f"Missing required field: {field}")
-        
-        return data
-    except json.JSONDecodeError as e:
-        raise ValueError(f"Invalid JSON: {e}")
-
-# Usage:
-# data = safe_parse(response_text, ['status', 'result'])
-```
-
 ## Multiple Endpoint Fallback Chain
 
 ### Try multiple API endpoints until one succeeds
@@ -406,37 +297,6 @@ async function tryEndpoints(endpoints, options = {}) {
 //   'https://api2.example.com/data',
 //   'https://api3.example.com/data'
 // ]);
-```
-
-**Python:**
-```python
-import requests
-from typing import List, Dict, Any
-
-def try_endpoints(endpoints: List[str], timeout: float = 10.0) -> Dict[str, Any]:
-    errors = []
-    
-    for endpoint in endpoints:
-        try:
-            print(f"Trying {endpoint}...")
-            res = requests.get(endpoint, timeout=timeout)
-            res.raise_for_status()
-            return {"endpoint": endpoint, "data": res.json()}
-        except Exception as e:
-            errors.append({"endpoint": endpoint, "error": str(e)})
-            print(f"{endpoint} failed: {e}")
-    
-    error_msg = "All endpoints failed:\n" + "\n".join(
-        f"  {e['endpoint']}: {e['error']}" for e in errors
-    )
-    raise Exception(error_msg)
-
-# Usage:
-# result = try_endpoints([
-#     'https://api1.example.com/data',
-#     'https://api2.example.com/data',
-#     'https://api3.example.com/data'
-# ])
 ```
 
 ## Usage in Skills

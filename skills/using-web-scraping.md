@@ -56,31 +56,6 @@ async function ddgSearchAndScrape(query) {
 // ddgSearchAndScrape('open-source agent runtimes').then(console.log);
 ```
 
-### Python (Playwright sync)
-```python
-from playwright.sync_api import sync_playwright
-
-def ddg_search_and_scrape(query):
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page(user_agent='open-skills-bot/1.0')
-        page.goto('https://duckduckgo.com/')
-        page.fill('input[name=q]', query)
-        page.keyboard.press('Enter')
-        page.wait_for_selector('.result__title a')
-        href = page.get_attribute('.result__title a', 'href')
-        if not href:
-            browser.close()
-            return []
-        page.goto(href)
-        title = page.title()
-        description = page.query_selector('meta[name="description"]').get_attribute('content') if page.query_selector('meta[name="description"]') else None
-        article = page.query_selector('article, main, #content')
-        text = article.inner_text() if article else None
-        browser.close()
-        return [{ 'url': href, 'title': title, 'description': description, 'text': text }]
-```
-
 ## Agent prompt (copy/paste)
 ```text
 You are an agent with a web-scraping skill. For any `search:` task, use DuckDuckGo to find relevant pages, then open each page in a headless Chrome instance (Playwright/Puppeteer) and extract `title`, `meta description`, `main text`, and `canonical` URL. Always:

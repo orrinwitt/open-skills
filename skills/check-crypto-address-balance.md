@@ -33,23 +33,13 @@ curl -s "https://blockchain.info/q/addressbalance/1A1zP1eP5QGefi2DMPTfTL5SLmv7Di
 curl -s "https://blockstream.info/api/address/1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa" | jq '.chain_stats.funded_txo_sum - .chain_stats.spent_txo_sum'
 ```
 
-**Node.js example:**
+**Node.js:**
 ```javascript
 async function getBTCBalance(address) {
   const res = await fetch(`https://blockchain.info/q/addressbalance/${address}`);
   const satoshis = await res.text();
   return parseFloat(satoshis) / 1e8; // convert satoshis to BTC
 }
-```
-
-**Python example:**
-```python
-import requests
-
-def get_btc_balance(address):
-    res = requests.get(f'https://blockchain.info/q/addressbalance/{address}')
-    satoshis = int(res.text)
-    return satoshis / 1e8  # convert to BTC
 ```
 
 ### Ethereum (ETH) balance
@@ -61,7 +51,7 @@ curl -s "https://api.etherscan.io/api?module=account&action=balance&address=0xde
 curl -s "https://api.blockchair.com/ethereum/dashboards/address/0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae" | jq '.data[].address.balance'
 ```
 
-**Node.js example:**
+**Node.js:**
 ```javascript
 async function getETHBalance(address) {
   const url = `https://api.etherscan.io/api?module=account&action=balance&address=${address}&tag=latest`;
@@ -71,24 +61,13 @@ async function getETHBalance(address) {
 }
 ```
 
-**Python example:**
-```python
-import requests
-
-def get_eth_balance(address):
-    url = f'https://api.etherscan.io/api?module=account&action=balance&address={address}&tag=latest'
-    res = requests.get(url)
-    wei = int(res.json()['result'])
-    return wei / 1e18  # convert to ETH
-```
-
 ### BSC (BNB Smart Chain) balance
 ```bash
 # Using BscScan (same API as Etherscan)
 curl -s "https://api.bscscan.com/api?module=account&action=balance&address=0x8894E0a0c962CB723c1976a4421c95949bE2D4E3&tag=latest" | jq -r '.result'
 ```
 
-**Node.js example:**
+**Node.js:**
 ```javascript
 async function getBSCBalance(address) {
   const url = `https://api.bscscan.com/api?module=account&action=balance&address=${address}&tag=latest`;
@@ -113,7 +92,7 @@ curl -s https://api.mainnet-beta.solana.com -X POST -H "Content-Type: applicatio
 curl -s "https://public-api.solscan.io/account/vines1vzrYbzLMRdu58ou5XTby4qAqVRLmqo36NKPTg" | jq '.lamports'
 ```
 
-**Node.js example:**
+**Node.js:**
 ```javascript
 async function getSOLBalance(address) {
   const res = await fetch('https://api.mainnet-beta.solana.com', {
@@ -131,22 +110,6 @@ async function getSOLBalance(address) {
 }
 ```
 
-**Python example:**
-```python
-import requests
-
-def get_sol_balance(address):
-    res = requests.post('https://api.mainnet-beta.solana.com',
-        json={
-            'jsonrpc': '2.0',
-            'id': 1,
-            'method': 'getBalance',
-            'params': [address]
-        })
-    lamports = res.json()['result']['value']
-    return lamports / 1e9  # convert to SOL
-```
-
 ### Litecoin (LTC) balance
 ```bash
 # Using Chain.so (returns LTC directly)
@@ -156,7 +119,7 @@ curl -s "https://chain.so/api/v2/get_address_balance/LTC/LTC_ADDRESS/6" | jq -r 
 curl -s "https://api.blockcypher.com/v1/ltc/main/addrs/LTC_ADDRESS/balance" | jq '.balance'
 ```
 
-**Node.js example:**
+**Node.js:**
 ```javascript
 async function getLTCBalance(address) {
   const res = await fetch(`https://chain.so/api/v2/get_address_balance/LTC/${address}/6`);

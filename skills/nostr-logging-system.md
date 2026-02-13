@@ -165,31 +165,6 @@ async function logNostrEvent({ level = 'info', message, sensitive = false, conte
 // await logNostrEvent({ level: 'error', message: 'JWT parse failed', sensitive: true, context: { userId: 42 } });
 ```
 
-### 4. Python fallback (basic HTTP publish)
-
-For full Nostr signing/encryption in Python, prefer dedicated Nostr libraries. If your agent is already using Node.js, keep logging there for reliability.
-
-```python
-import os
-import subprocess
-
-def log_public_via_node(message: str):
-    script = f"""
-const {{ posttoNostr }} = require('nostr-sdk');
-posttoNostr('[PUBLIC_LOG] ' + process.argv[1], {{
-  nsec: process.env.NOSTR_NSEC,
-  tags: [['t','logs'],['t','public']],
-  relays: null,
-  powDifficulty: 4
-}})
-  .then(r => console.log(JSON.stringify(r)))
-  .catch(e => {{ console.error(e); process.exit(1); }});
-"""
-    subprocess.run(['node', '-e', script, message], check=True)
-
-# log_public_via_node('service healthy')
-```
-
 ## Agent prompt
 
 ```text

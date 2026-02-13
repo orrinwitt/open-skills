@@ -1,6 +1,6 @@
 ---
 name: generate-qr-code-natively
-description: Generate QR codes locally without external APIs using native CLI and runtime libraries in Bash, Node.js, and Python.
+description: Generate QR codes locally without external APIs using native CLI and runtime libraries in Bash and Node.js.
 ---
 
 # Generate QR Code Natively
@@ -16,7 +16,6 @@ Create QR codes fully offline on the local machine (no third-party QR API calls)
 - No external API required
 - Bash CLI option: `qrencode`
 - Node.js option: `qrcode` package
-- Python option: `qrcode` package
 
 Install options:
 
@@ -26,9 +25,6 @@ sudo apt-get update && sudo apt-get install -y qrencode
 
 # Node.js
 npm install qrcode
-
-# Python
-python -m pip install "qrcode[pil]"
 ```
 
 ## Skills
@@ -82,40 +78,10 @@ Run:
 node generate-qr.js "https://example.com/invoice/abc"
 ```
 
-### generate_qr_with_python
-
-```python
-import qrcode
-
-data = "https://example.com/invoice/abc"
-
-qr = qrcode.QRCode(
-    version=None,
-    error_correction=qrcode.constants.ERROR_CORRECT_M,
-    box_size=10,
-    border=2,
-)
-qr.add_data(data)
-qr.make(fit=True)
-
-img = qr.make_image(fill_color="black", back_color="white")
-img.save("qrcode.png")
-
-with open("qrcode_terminal.txt", "w", encoding="utf-8") as f:
-    f.write(qr.print_ascii(invert=True, tty=False) or "")
-
-print("Saved: qrcode.png")
-```
-
-Alternative minimal Python one-liner:
-```python
-import qrcode; qrcode.make("https://example.com").save("qrcode.png")
-```
-
 ## Agent prompt
 ```text
 You are generating QR codes locally without calling external QR APIs.
-Use one of: Bash (qrencode), Node.js (qrcode), or Python (qrcode[pil]).
+Use Bash (qrencode) for quick CLI generation or Node.js (qrcode package) for programmatic control.
 Return:
 1) command/code used,
 2) output filenames (png/svg),
@@ -132,7 +98,6 @@ If dependency is missing, provide the install command and retry.
 ## Troubleshooting
 - `qrencode: command not found` → install `qrencode` via package manager
 - Node import error → ensure `npm install qrcode` completed
-- Python `ModuleNotFoundError: qrcode` → run `python -m pip install "qrcode[pil]"`
 - Dense/unclear QR image → increase image size/box size and reduce payload length
 
 ## See also
