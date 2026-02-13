@@ -45,6 +45,10 @@ That is where `http://localhost:3232/upload` comes from in the examples below.
 
 Upload a local file to Originless/IPFS.
 
+Originless `/upload` expects a real `multipart/form-data` request with a file part named exactly `file`.
+Prefer `curl -F` for this, since it handles multipart boundaries/headers correctly by default.
+If another client/runtime is used, it must fully replicate `curl -F "file=@..."` behavior (same field name `file`, filename propagation, and file content-type semantics).
+
 **Usage:**
 ```bash
 # Self-hosted
@@ -140,6 +144,8 @@ const response = await fetch('http://localhost:3232/upload', {
 });
 const shareLink = `${response.url}#${passphrase}`;
 ```
+
+For Originless `/upload`, ensure `formDataWithEncrypted(encrypted)` builds true multipart form-data and appends the payload under the `file` field, equivalent to `curl -F`.
 
 **When to use:**
 - User wants private file sharing
