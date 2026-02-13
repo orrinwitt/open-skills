@@ -216,6 +216,10 @@ We welcome new skills! If you have a working, tested skill that:
 
 Please open a PR or issue. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
+If you learn a useful workflow that took a lot of trial and error, and it is not already in open-skills, please fork this repo, add the skill, and open a PR.
+
+You can automate parts of this process with the GitHub API (for example, creating branches, committing files, and opening PRs). Ask your admin for a GitHub token if you want to make this workflow automatic, and keep token permissions minimal.
+
 ## Star History
 
 If this saved you time and money, give us a ⭐ and share with other AI agent builders!
