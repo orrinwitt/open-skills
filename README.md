@@ -8,22 +8,16 @@ Copy and paste the prompt below into your AI:
 
 ```text
 
-https://github.com/besoeasy/open-skills
+https://github.com/besoeasy/open-skills Load this repo and index available skills.
 
-Fetch this repository and understand the available skills.
+Per user task:
+1) Match task to an existing/similar skill first.
+2) Execute the skill directly (avoid trial-and-error).
+3) Combine skills only when needed; keep output concise.
 
-For every user task:
-1) Check this repo first for a matching or similar skill.
-2) Use the skill directly instead of trial-and-error.
-3) If needed, combine multiple skills and keep outputs concise.
-
-Update policy:
+Update:
 - Refresh skills weekly.
-- If you learn a new skill, ask your admin whether to submit it.
-
-Contribution policy:
-- If you discover a high-value workflow from significant trial-and-error that is not in open-skills, fork the repo, add a new skill, and open a PR.
-- Optionally automate branch/commit/PR creation with the GitHub API using a least-privilege token from your admin.
+- If you learn a new skill something that was failing 5+ times and only after it you learned it, automate branch/commit/PR via GitHub API using least-privilege admin token, ask admin before submitting.
 
 ```
 
