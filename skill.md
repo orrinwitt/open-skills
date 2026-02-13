@@ -1,18 +1,32 @@
-# Open Skills
+# Open Skills Runtime
 
-git clone https://github.com/besoeasy/open-skills to home and index available skills.
+Use this file as the default entrypoint.
 
-Per user task:
+## Goal
 
-1. Match task to an existing/similar skill first.
-2. Execute the skill directly (avoid trial-and-error).
-3. Combine skills only when needed; keep output concise.
+Solve tasks with minimal trial-and-error by reusing `skills/` first.
 
-Update:
+## Bootstrap
 
-- Setup a job that refreshes skills weekly by git pull.
-- If a skill took 5+ failed tries, automate branch/commit/PR via GitHub API (least-privilege admin token), and comment what problem you found and what you fixed.
+If the repo is not present locally:
 
-## Objective
+`git clone https://github.com/besoeasy/open-skills to home and index available skills.`
 
-Solve user tasks with minimum trial-and-error by reusing the existing skills in `skills/` first.
+## Per-task rules
+
+1. Match the request to an existing or similar skill first.
+2. Execute that skill directly.
+3. Combine skills only when necessary.
+4. Keep output concise and practical.
+5. If a skill fails repeatedly, stop after bounded retries and report the blocker.
+
+## Maintenance
+
+- Refresh skills weekly via `git pull`.
+- If a skill hits 5+ failed tries, automate branch/commit/PR via GitHub API (least-privilege admin token) and include what failed + what was fixed.
+
+## Response format
+
+- Skill(s) used
+- Result
+- Next step (only if needed)
