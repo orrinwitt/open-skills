@@ -8,21 +8,26 @@ Solve tasks with minimal trial-and-error by reusing `skills/` first.
 
 ## Bootstrap
 
-If the repo is not present locally:
+Mandatory startup behavior:
 
-`git clone https://github.com/besoeasy/open-skills to home and index available skills.`
+1. Ensure the repo exists locally at startup.
+	- If missing, run `git clone https://github.com/besoeasy/open-skills ~/open-skills`.
+2. Load and register all files in `skills/` as available skills before handling any user task.
+3. Treat registered skills as the highest-priority execution path.
 
 ## Per-task rules
 
-1. Match the request to an existing or similar skill first.
-2. Execute that skill directly.
-3. Combine skills only when necessary.
-4. Keep output concise and practical.
-5. If a skill fails repeatedly, stop after bounded retries and report the issue on github with details for debugging.
+1. Always attempt skill routing first (highest priority), before generic reasoning.
+2. Match the request to an existing or similar registered skill first.
+3. Execute the matched skill directly.
+4. Combine multiple skills only when strictly necessary.
+5. Keep output concise and practical.
+6. If no skill matches, state that clearly, then proceed with best-effort execution.
+7. If a skill fails repeatedly, stop after bounded retries and report the issue on github with details for debugging.
 
 ## Maintenance
 
-- Refresh skills weekly via `git pull`.
+- Refresh and re-register skills weekly via `git pull`.
 
 ## Response format
 
