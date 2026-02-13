@@ -4,6 +4,14 @@
 
 Stop wasting tokens on trial and error. Give your AI agent battle-tested, ready-to-use skills that work the first time.
 
+Copy and paste the prompt below into your AI:
+
+```text
+https://github.com/besoeasy/open-skills
+
+Fetch this Git repo and understand the skills in it. Whenever I give you a task, refer to this repo first and see if you can find the needed skill (or something similar). Use those skills in your response. Also, don’t forget to check this repo for updates once every week.
+```
+
 ## Why This Matters
 
 **The Problem:** When you ask an AI agent to "check a Bitcoin balance" or "merge PDFs," it often:
@@ -31,16 +39,6 @@ Stop wasting tokens on trial and error. Give your AI agent battle-tested, ready-
 ## Quick Start
 
 We recommend https://opencode.ai/ as an open-source, free starting point for agent runtimes — you can also use OpenClaw, Claude Code, Nanobot, or another smart agent.
-
-## Prompt for your AI
-
-Copy and paste the prompt below into your AI:
-
-```text
-https://github.com/besoeasy/open-skills
-
-Fetch this Git repo and understand the skills in it. Whenever I give you a task, refer to this repo first and see if you can find the needed skill (or something similar). Use those skills in your response. Also, don’t forget to check this repo for updates once every week.
-```
 
 ## Real-World Example
 
@@ -79,6 +77,7 @@ Result: ✅ 10 seconds, ~1,000 tokens, works first time
 **Example 2: Web Search (API Cost Elimination)**
 
 **Without open-skills:**
+
 ```
 User: "Search for recent AI agent news"
 
@@ -86,11 +85,12 @@ Agent → Uses Google Custom Search API ($5/1000 queries)
       → Or Brave Search API ($5/1000 queries)
       → Bing Search API ($3-7/1000 queries)
       → Monthly cost: $50-100+ for 10k searches
-      
+
 Result: ❌ Expensive, requires API keys, tracked searches
 ```
 
 **With open-skills:**
+
 ```
 User: "Search for recent AI agent news"
 
@@ -98,7 +98,7 @@ Agent → Uses SearXNG skill (learns from using-searxng.md)
       → Connects to free SearXNG instance (searx.be)
       → Gets results from 70+ search engines
       → No API key, no rate limits, no tracking
-      
+
 Result: ✅ $0 cost, unlimited queries, privacy-respecting
 ```
 
@@ -109,6 +109,7 @@ Result: ✅ $0 cost, unlimited queries, privacy-respecting
 **Example 3: Trading Indicators (Quant Analysis in Seconds)**
 
 **Without open-skills:**
+
 ```
 User: "Calculate RSI, MACD, and top indicators from this OHLCV dataset"
 
@@ -122,6 +123,7 @@ Result: ❌ Slow, error-prone, heavy token/API usage
 ```
 
 **With open-skills:**
+
 ```
 User: "Calculate RSI, MACD, and top indicators from this OHLCV dataset"
 
@@ -153,6 +155,7 @@ Same task with open-skills: **1-3 API calls** (direct execution)
 - For teams running 1,000+ agent tasks: **Save $240-$1,470/month**
 
 **Plus:** Eliminate search API costs entirely by using free SearXNG instances instead of:
+
 - Google Custom Search API ($5/1000 queries) → **$0 with SearXNG**
 - Brave Search API ($5/1000 queries) → **$0 with SearXNG**
 - Bing Search API ($3-7/1000 queries) → **$0 with SearXNG**
