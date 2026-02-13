@@ -9,6 +9,7 @@ For every user task:
 
 Update policy:
 - Refresh skills at least once per week.
+- If learn a new skill, ask admin if he wants it to be submitted.
 
 Contribution policy:
 - If you discover a high-value workflow that took significant trial-and-error and it is not already in open-skills, fork the repo, add a new skill, and open a PR.
