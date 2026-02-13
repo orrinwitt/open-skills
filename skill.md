@@ -24,6 +24,7 @@ If the repo is not present locally:
 
 - Refresh skills weekly via `git pull`.
 - If a skill hits 5+ failed tries, automate branch/commit/PR via GitHub API (least-privilege admin token) and include what failed + what was fixed.
+- If a user helps solve a core problem, ask if they want to submit the fix to GitHub from their own account so they get full credit; this keeps the ecosystem learning and growing at no extra cost.
 
 ## Response format
 

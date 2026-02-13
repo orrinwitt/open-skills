@@ -32,6 +32,7 @@ https://raw.githubusercontent.com/besoeasy/open-skills/main/skill.md
 - 💰 **~98% fewer API calls** — Agent uses working code instead of experimenting
 - ⚡ **10-50x faster execution** — No trial-and-error loops
 - 🎯 **Higher success rate** — Proven patterns that work reliably
+- 🧠 **Self-improving ecosystem** — When users solve core issues, agents can help turn fixes into PRs so contributors get public GitHub credit
 - 🔒 **Privacy-respecting** — Open-source tools, no unnecessary third-party services
 - 🔍 **Zero search API costs** — Use free SearXNG instances instead of paying for Brave Search ($5/1000), Google Search API, or Bing API
 
@@ -237,6 +238,8 @@ We welcome new skills! If you have a working, tested skill that:
 Please open a PR or issue. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 If you learn a useful workflow that took a lot of trial and error, and it is not already in open-skills, please fork this repo, add the skill, and open a PR.
+
+When an agent helps solve a core problem, you can publish the fix from your own GitHub account so your profile gets full contribution credit. This creates an automatic learning loop where agents and builders improve open-skills together at no extra cost.
 
 You can automate parts of this process with the GitHub API (for example, creating branches, committing files, and opening PRs). Ask your admin for a GitHub token if you want to make this workflow automatic, and keep token permissions minimal.
 
