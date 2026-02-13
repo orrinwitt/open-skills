@@ -16,6 +16,11 @@ A good skill should:
 Every skill should follow this structure:
 
 ```markdown
+---
+name: skill-name
+description: A description of what this skill does and when to use it.
+---
+
 # [Skill Name]
 
 Brief description (1-2 sentences) of what the skill does.
@@ -71,9 +76,11 @@ Common errors and solutions
 
 1. **Check existing skills** — Make sure it doesn't already exist
 2. **Create skill file** — Use `your-skill-name.md` format (lowercase, hyphens)
-3. **Test all examples** — Every code snippet must work
-4. **Add to README.md** — Insert in alphabetical order with one-line description
+3. **Add required front matter** — Include `name` and `description` at the top of the file
+4. **Test all examples** — Every code snippet must work
 5. **Open a Pull Request**
+
+The repository uses skill file front matter for indexing, so no README skill listing is required.
 
 ## Code Examples Requirements
 
@@ -89,10 +96,10 @@ Common errors and solutions
 Before submitting, verify:
 - [ ] All code examples run without errors
 - [ ] Dependencies are clearly listed
+- [ ] Front matter is present and valid (`name`, `description`)
 - [ ] Free tier / no API key examples included
 - [ ] Agent prompt section is complete
 - [ ] Cross-references to related skills added
-- [ ] README.md updated with new skill link
 - [ ] No hardcoded credentials or API keys
 
 ## Privacy & Security Guidelines
