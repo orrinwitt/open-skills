@@ -158,14 +158,15 @@ AI agents are incredibly powerful, but they waste enormous amounts of compute re
 ## Skills
 
 - [Anonymous File Upload](./skills/anonymous-file-upload.md) — Privacy-first anonymous uploads to IPFS, with optional client-side encryption for private sharing.
-- [Using Nostr](./skills/using-nostr.md) — Post public notes and send encrypted direct messages on the Nostr decentralized protocol.
-- [Get Crypto Price](./skills/get-crypto-price.md) — Fetch current and historical crypto prices (CoinGecko, Binance, Coinbase) and compute ATH/ATL for common time windows.
 - [Check Crypto Address Balance](./skills/check-crypto-address-balance.md) — Query address balances for BTC, ETH, BSC, Solana, LTC, and more using free public APIs (Blockchain.info, Etherscan, BscScan, Solana RPC, Chain.so).
+- [Get Crypto Price](./skills/get-crypto-price.md) — Fetch current and historical crypto prices (CoinGecko, Binance, Coinbase) and compute ATH/ATL for common time windows.
+- [Nostr Logging System](./skills/nostr-logging-system.md) — Route non-sensitive logs to public Nostr notes and send sensitive logs privately to an admin `npub`.
 - [PDF Manipulation](./skills/pdf-manipulation.md) — Merge, split, extract text/images, redact, compress, encrypt, and watermark PDFs using pdftk, qpdf, poppler-utils, and ghostscript.
 - [Telegram (Telegraf)](./skills/using-telegram-bot.md) — Node.js examples for building Telegram bots with `telegraf` (polling, webhooks, media, inline buttons).
-- [YouTube Download](./skills/using-youtube-download.md) — Use `yt-dlp` + `ffmpeg` to download highest-quality video and extract MP3 audio.
-- [Web Search API (Free)](./skills/web-search-api.md) — Free, unlimited web search via SearXNG instances. No API keys, no rate limits, no costs. Replaces Google/Brave/Bing Search APIs and saves $360-$8,000/year.
+- [Using Nostr](./skills/using-nostr.md) — Post public notes and send encrypted direct messages on the Nostr decentralized protocol.
 - [Web Scraping (Chrome + DuckDuckGo)](./skills/using-web-scraping.md) — Headless Chrome (Playwright/Puppeteer) + DuckDuckGo search; respects `robots.txt`, rate-limits, and returns structured JSON.
+- [Web Search API (Free)](./skills/web-search-api.md) — Free, unlimited web search via SearXNG instances. No API keys, no rate limits, no costs. Replaces Google/Brave/Bing Search APIs and saves $360-$8,000/year.
+- [YouTube Download](./skills/using-youtube-download.md) — Use `yt-dlp` + `ffmpeg` to download highest-quality video and extract MP3 audio.
 
 ## Contributing
 
