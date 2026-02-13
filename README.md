@@ -17,7 +17,7 @@ Per user task:
 
 Update:
 - Setup a Job that Refreshs skills weekly by git pull.
-- If a skill took 5+ failed tries, automate branch/commit/PR via GitHub API (least-privilege admin token), then ask admin before submitting.
+- If a skill took 5+ failed tries, automate branch/commit/PR via GitHub API (least-privilege admin token), comment what problem you found and what you fixed.
 
 ```
 
