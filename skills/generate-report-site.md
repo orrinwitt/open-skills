@@ -14,6 +14,9 @@ Create a single `index.html` report page from user-provided content, style it wi
 - User wants instant public hosting via Originless/IPFS
 - User optionally asks for a password prompt before content is shown
 
+Before generating the final HTML, pre-upload any images or other assets you plan to include and use the returned hosted URLs in `index.html`.
+If the report content appears sensitive (PII, credentials, private business data, internal docs), explicitly ask the user whether they want password protection enabled.
+
 ## Required tools / APIs
 
 - Originless endpoint (pick one):
@@ -82,6 +85,8 @@ Generate an `index.html` with Tailwind CDN and subtle animations.
 ### upload_report_to_originless
 
 Upload generated `index.html` and return hosted URL.
+
+If the report includes images/files, upload those assets first, collect their hosted URLs/CIDs, and reference those URLs inside `index.html` before uploading the page.
 
 Prefer `curl` for uploads, since it handles `multipart/form-data` reliably out of the box.
 If another tool/runtime is used, it must be a full `curl -F` replacement: send a real multipart body, include the file part named exactly `file`, and preserve filename/content-type behavior.
@@ -234,20 +239,23 @@ Requirements:
 1) Use Tailwind via CDN only (no build step).
 2) Keep design white-background, clean typography, subtle card hover and fade-up animations.
 3) Render exactly the user-requested report content in semantic sections.
-4) Save as index.html.
-5) Prefer uploading index.html with curl `-F` multipart/form-data to Originless using:
+4) Pre-upload any images or other assets you include, then reference their hosted URLs in the HTML.
+5) If content appears sensitive/private, ask the user if they want password protection before publishing.
+6) Save as index.html.
+7) Prefer uploading index.html with curl `-F` multipart/form-data to Originless using:
    - http://localhost:3232/upload (if local instance exists), else
    - https://filedrop.besoeasy.com/upload.
-6) If curl is unavailable and another tool is used, implement a full multipart/form-data equivalent of curl `-F "file=@index.html"` (same field name `file`, filename, and content-type handling).
-7) Return upload response with URL/CID.
-8) If user asks for password protection, embed encrypted payload + browser-side unlock form; only render content after successful password decryption.
-9) Clearly state that password mode is client-side gating and not equivalent to server-side access control.
+8) If curl is unavailable and another tool is used, implement a full multipart/form-data equivalent of curl `-F "file=@index.html"` (same field name `file`, filename, and content-type handling).
+9) Return upload response with URL/CID.
+10) If user asks for password protection, embed encrypted payload + browser-side unlock form; only render content after successful password decryption.
+11) Clearly state that password mode is client-side gating and not equivalent to server-side access control.
 ```
 
 ## Best practices
 
 - Keep animation minimal to preserve readability and avoid motion-heavy UX
 - Prefer semantic headings and short sections for report scanning
+- Upload assets first so final report links are stable and publicly resolvable
 - Validate upload response and retry between available Originless endpoints if needed
 - For sensitive reports, encrypt content before upload and share password out-of-band
 
