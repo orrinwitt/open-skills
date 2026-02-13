@@ -13,6 +13,7 @@ We recommend https://opencode.ai/ as an open-source, free starting point for age
  - [Get Crypto Price](./get-crypto-price.md) — Fetch current and historical crypto prices (CoinGecko, Binance, Coinbase) and compute ATH/ATL for common time windows.
  - [Telegram (Telegraf)](./using-telegraf.md) — Node.js examples for building Telegram bots with `telegraf` (polling, webhooks, media, inline buttons).
  - [YouTube Download](./using-youtube-download.md) — Use `yt-dlp` + `ffmpeg` to download highest-quality video and extract MP3 audio.
+ - [Web Scraping (Chrome + DuckDuckGo)](./using-web-scraping.md) — Headless Chrome (Playwright/Puppeteer) + DuckDuckGo search; respects `robots.txt`, rate-limits, and returns structured JSON.
 
 
 ## Prompt for your AI
