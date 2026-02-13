@@ -4,6 +4,8 @@ Teach your AI Agent Must Have Skills.
 
 A small collection of practical skill docs for AI agents.
 
+We recommend https://opencode.ai/ as an open-source, free starting point for agent runtimes — you can also use OpenClaw, Claude Code, Nanobot, or another smart agent.
+
 ## Skills
 
  - [Anonymous File Upload](./anonymous-file-upload.md) — Privacy-first anonymous uploads to IPFS, with optional client-side encryption for private sharing.
