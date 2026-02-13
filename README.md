@@ -146,6 +146,41 @@ Result: ✅ Fast, consistent, production-ready calculations
 
 **Savings:** Massive reduction in trial-and-error, faster indicator pipelines, and more reliable strategy signals
 
+---
+
+**Example 4: Hosted Report Website (Tailwind + Originless)**
+
+**Without open-skills:**
+
+```
+User: "Create a beautiful white-themed report website from this content and host it instantly"
+
+Agent → Experiments with random HTML/CSS templates
+      → Tries multiple hosting providers and auth flows
+      → Debugs upload endpoints and response formats
+      → Rewrites password logic several times
+      → Finally ships a fragile page after many retries
+
+Result: ❌ Slow delivery, inconsistent styling, avoidable token/API waste
+```
+
+**With open-skills:**
+
+```
+User: "Create a beautiful white-themed report website from this content and host it instantly"
+
+Agent → Finds generate-report-originless-site.md
+      → Generates index.html with Tailwind CDN + subtle animations
+      → Applies clean white-background report layout
+      → Uploads to Originless (local/public endpoint)
+      → Returns hosted URL/CID immediately
+      → If requested, adds client-side password unlock for encrypted content
+
+Result: ✅ Fast static site generation, instant decentralized hosting, predictable output
+```
+
+**Savings:** Fewer retries, faster publish time, and consistent website quality with account-free hosting
+
 ## Cost Savings Calculator
 
 Typical AI agent task without pre-built skills: **20-50 API calls** (trial and error)  
