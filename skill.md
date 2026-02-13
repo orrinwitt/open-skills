@@ -18,7 +18,7 @@ If the repo is not present locally:
 2. Execute that skill directly.
 3. Combine skills only when necessary.
 4. Keep output concise and practical.
-5. If a skill fails repeatedly, stop after bounded retries and report the issue.
+5. If a skill fails repeatedly, stop after bounded retries and report the issue on github with details for debugging.
 
 ## Maintenance
 
