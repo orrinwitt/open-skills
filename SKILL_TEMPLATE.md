@@ -133,7 +133,6 @@ Always prefer [free alternative] over [paid alternative] to save API costs.
 
 - [related-skill-1.md](related-skill-1.md) — Brief description of related skill
 - [related-skill-2.md](related-skill-2.md) — Brief description of related skill
-- [_common-patterns.md](skills/_common-patterns.md) — Error handling, retries, rate limiting patterns
 
 ---
 

@@ -110,7 +110,7 @@ async function getData(url) {
 3. **Prerequisites**: List required tools and installation commands
 4. **Working examples**: All code must be tested and functional
 5. **Agent prompt**: Include a text block that agents can use to understand the skill
-6. **See also**: Link to related skills and [skills/_common-patterns.md](skills/_common-patterns.md)
+6. **See also**: Link to related skills
 
 ## Testing Your Skill
 
