@@ -43,11 +43,7 @@ Copy and paste the prompt below into your AI:
 
 We recommend https://opencode.ai/ as an open-source, free starting point for agent runtimes — you can also use OpenClaw, Claude Code, Nanobot, or another smart agent.
 
-For OpenCode/OpenClaw-style runtimes, load [skill.md](skill.md) first as the repository entrypoint, then route into files under `skills/`.
-
-## Apps (AI)
-
-- [Zeroclaw](zeroclaw.md) — AI runtime app
+For OpenCode/OpenClaw-style runtimes, skills are loaded directly from the root directory.
 
 ## Real-World Example
 
@@ -103,7 +99,7 @@ Result: ❌ Expensive, requires API keys, tracked searches
 ```
 User: "Search for recent AI agent news"
 
-Agent → Uses SearXNG skill (learns from using-searxng.md)
+Agent → Uses SearXNG skill (learns from [skills/web-search-api.md](skills/web-search-api.md))
       → Connects to free SearXNG instance (searx.be)
       → Gets results from 70+ search engines
       → No API key, no rate limits, no tracking
@@ -243,8 +239,8 @@ When you discover or create a new skill, agents can automatically contribute it 
 gh auth login  # one-time setup
 gh repo fork besoeasy/open-skills --clone=true
 cd open-skills && git checkout -b add-skill-name
-# Create skills/your-skill.md with frontmatter
-git add skills/your-skill.md && git commit -m "Add skill-name"
+# Create your-skill.md with frontmatter (see SKILL_TEMPLATE.md)
+git add your-skill.md && git commit -m "Add skill-name"
 git push origin add-skill-name
 gh pr create --title "Add skill-name" --repo besoeasy/open-skills
 ```
