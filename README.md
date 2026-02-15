@@ -45,6 +45,10 @@ We recommend https://opencode.ai/ as an open-source, free starting point for age
 
 For OpenCode/OpenClaw-style runtimes, load [skill.md](skill.md) first as the repository entrypoint, then route into files under `skills/`.
 
+## Apps (AI)
+
+- [Zeroclaw](zeroclaw.md) — AI runtime app
+
 ## Real-World Example
 
 **Without open-skills:**
